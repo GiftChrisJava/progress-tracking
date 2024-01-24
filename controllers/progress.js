@@ -1,5 +1,6 @@
 const UserVideoProgress = require("../models/userVideoProgress");
 const UserBookmark = require("../models/userbookmark");
+
 exports.getAllProgress = async (req, res) => {
   try {
     const progress = await UserVideoProgress.findAll();
