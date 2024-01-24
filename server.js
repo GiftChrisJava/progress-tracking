@@ -7,7 +7,7 @@ const apiRoutes = require("./routes/routes");
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use("/api/", apiRoutes);
+app.use("/api", apiRoutes);
 
 // define port
 const PORT = process.env.PORT || 8080;

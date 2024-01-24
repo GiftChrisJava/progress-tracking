@@ -1,5 +1,7 @@
-const UserVideoProgress = require("../models/userVideoProgress");
-const UserBookmark = require("../models/userbookmark");
+const entities = require("../models");
+
+const UserVideoProgress = entities.UserVideoProgress;
+const UserBookmark = entities.UserBookmark;
 
 exports.getAllProgress = async (req, res) => {
   try {
