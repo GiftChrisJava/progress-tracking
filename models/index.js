@@ -23,6 +23,7 @@ const db = {}; // db object
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
+const UserBookmark = require("../models/userbookmark")(sequelize, DataTypes);
 const User = require("../models/user")(sequelize, DataTypes);
 const Video = require("../models/video")(sequelize, DataTypes);
 const UserVideoProgress = require("../models/userVideoProgress")(
@@ -34,9 +35,13 @@ const UserVideoProgress = require("../models/userVideoProgress")(
 UserVideoProgress.belongsTo(User, { foreignKey: "user_id" });
 UserVideoProgress.belongsTo(Video, { foreignKey: "video_id" });
 
+UserBookmark.belongsTo(User, { foreignKey: "user_id" });
+UserBookmark.belongsTo(Video, { foreignKey: "video_id" });
+
 db.User = User;
 db.Video = Video;
-db.Sequelize = UserVideoProgress;
+db.UserVideoProgress = UserVideoProgress;
+db.UserBookmark = UserBookmark;
 
 // run your db
 db.sequelize.sync({ force: false }).then(() => {
