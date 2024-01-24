@@ -43,9 +43,9 @@ db.Video = Video;
 db.UserVideoProgress = UserVideoProgress;
 db.UserBookmark = UserBookmark;
 
-// run your db
+// run database
 db.sequelize.sync({ force: false }).then(() => {
-  console.log("re-sync done");
+  console.log("re-sync done...");
 });
 
 module.exports = db;

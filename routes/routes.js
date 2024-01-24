@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const userVideoProgressController = require("../controllers/progress.controller");
+const userVideoProgressController = require("../controllers/progress");
 
 router.get("/progress", userVideoProgressController.getAllProgress);
 router.post("/progress", userVideoProgressController.createProgress);
