@@ -1,13 +1,15 @@
 const express = require("express");
 const cors = require("cors");
 const app = express();
-const apiRoutes = require("./routes/routes");
+const progressRoutes = require("./routes/progress.routes");
+const vieoRoutes = require("./routes/video.routes");
 
 // middleware
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use("/api", apiRoutes);
+app.use("/progress", progressRoutes);
+app.use("/video", vieoRoutes);
 
 // define port
 const PORT = process.env.PORT || 8080;
