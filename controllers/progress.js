@@ -6,10 +6,10 @@ const UserBookmark = entities.UserBookmark;
 exports.getAllProgress = async (req, res) => {
   try {
     const progress = await UserVideoProgress.findAll();
-    res.json(progress);
+    return res.json(progress);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: "Internal Server Error" });
+    return res.status(500).json({ error: "Internal Server Error" });
   }
 };
 
@@ -23,20 +23,20 @@ exports.createProgress = async (req, res) => {
       duration,
       completed,
     });
-    res.json(progress);
+    return res.json(progress);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: "Internal Server Error" });
+    return res.status(500).json({ error: "Internal Server Error" });
   }
 };
 
 exports.getAllBookmarks = async (req, res) => {
   try {
     const bookmarks = await UserBookmark.findAll();
-    res.json(bookmarks);
+    return res.json(bookmarks);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: "Internal Server Error" });
+    return res.status(500).json({ error: "Internal Server Error" });
   }
 };
 
@@ -47,9 +47,9 @@ exports.createBookmark = async (req, res) => {
       user_id,
       video_id,
     });
-    res.json(bookmark);
+    return res.json(bookmark);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: "Internal Server Error" });
+    return res.status(500).json({ error: "Internal Server Error" });
   }
 };
