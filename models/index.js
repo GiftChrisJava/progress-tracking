@@ -26,21 +26,18 @@ db.sequelize = sequelize;
 const UserBookmark = require("../models/userbookmark")(sequelize, DataTypes);
 const User = require("../models/user")(sequelize, DataTypes);
 const Video = require("../models/video")(sequelize, DataTypes);
-const UserVideoProgress = require("../models/userVideoProgress")(
-  sequelize,
-  DataTypes
-);
+const Progress = require("./progress")(sequelize, DataTypes);
 
 // associations
-UserVideoProgress.belongsTo(User, { foreignKey: "user_id" });
-UserVideoProgress.belongsTo(Video, { foreignKey: "video_id" });
+Progress.belongsTo(User, { foreignKey: "user_id" });
+Progress.belongsTo(Video, { foreignKey: "video_id" });
 
 UserBookmark.belongsTo(User, { foreignKey: "user_id" });
 UserBookmark.belongsTo(Video, { foreignKey: "video_id" });
 
 db.User = User;
 db.Video = Video;
-db.UserVideoProgress = UserVideoProgress;
+db.Progress = Progress;
 db.UserBookmark = UserBookmark;
 
 // run database

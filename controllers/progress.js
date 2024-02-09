@@ -1,13 +1,13 @@
 const entities = require("../models");
 
-const UserVideoProgress = entities.UserVideoProgress;
+const Progress = entities.Progress;
 const UserBookmark = entities.UserBookmark;
 const User = entities.User;
 const Video = entities.Video;
 
 exports.getAllProgress = async (req, res) => {
   try {
-    const progress = await UserVideoProgress.findAll();
+    const progress = await Progress.findAll();
     return res.json(progress);
   } catch (error) {
     console.error(error);
@@ -29,7 +29,7 @@ exports.createProgress = async (req, res) => {
     if (!existingUser) {
       return res.status(404).json({ error: "User Not Found" });
     }
-    const progress = await UserVideoProgress.create({
+    const progress = await Progress.create({
       user_id,
       video_id,
     });
@@ -45,7 +45,7 @@ exports.getProgress = async (req, res) => {
   const { progress_id } = req.params;
 
   try {
-    const existingProgress = await UserVideoProgress.findOne({
+    const existingProgress = await Progress.findOne({
       where: { id: progress_id },
     });
 
@@ -78,7 +78,7 @@ exports.updateProgress = async (req, res) => {
 
     let id = progress_id;
 
-    const existingProgress = await UserVideoProgress.findOne({
+    const existingProgress = await Progress.findOne({
       where: { id: progress_id, user_id, video_id },
     });
 
@@ -86,7 +86,7 @@ exports.updateProgress = async (req, res) => {
       return res.status(404).json({ error: "Video Progress Not Found" });
     }
 
-    await UserVideoProgress.update({ progress_time });
+    await Progress.update({ progress_time });
 
     return res.json({ message: "Updated" });
   } catch (error) {
@@ -99,7 +99,7 @@ exports.deleteProgress = async (req, res) => {
   const { progress_id } = req.params;
 
   try {
-    const existingProgress = await UserVideoProgress.findOne({
+    const existingProgress = await Progress.findOne({
       where: { id: progress_id },
     });
 

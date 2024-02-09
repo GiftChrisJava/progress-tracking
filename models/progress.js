@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
-  const UserVideoProgress = sequelize.define(
-    "uservideoprogress",
+  const Progress = sequelize.define(
+    "progress",
     {
       progress_time: {
         type: DataTypes.FLOAT,
@@ -20,5 +20,5 @@ module.exports = (sequelize, DataTypes) => {
     }
   );
 
-  return UserVideoProgress;
+  return Progress;
 };
