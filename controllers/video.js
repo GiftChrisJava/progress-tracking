@@ -31,8 +31,8 @@ exports.getVideo = async (req, res) => {
   const { video_id } = req.params;
 
   try {
-    const existingvideo = await Video.findByPk({
-      id: video_id,
+    const existingvideo = await Video.findOne({
+      where: { id: video_id },
     });
 
     if (!existingvideo) {
@@ -68,8 +68,8 @@ exports.deleteVideo = async (req, res) => {
   const { video_id } = req.params;
 
   try {
-    const existingvideo = await Video.findByPk({
-      id: video_id,
+    const existingvideo = await Video.findOne({
+      where: { id: video_id },
     });
 
     if (!existingvideo) {

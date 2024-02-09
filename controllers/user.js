@@ -30,8 +30,8 @@ exports.getUser = async (req, res) => {
   const { user_id } = req.params;
 
   try {
-    const existingUser = await User.findByPk({
-      id: user_id,
+    const existingUser = await User.findOne({
+      where: { id: user_id },
     });
 
     if (!existingUser) {
@@ -49,12 +49,13 @@ exports.updateUser = async (req, res) => {
   const { email } = req.body;
 
   try {
-    const existingUser = await User.findByPk({ id: user_id });
+    const existingUser = await User.findOne({
+      where: { id: user_id },
+    });
 
     if (!existingUser) {
-      return res.status(404).json({ error: "User Not Found" });
+      return res.status(404).json({ error: "User User Not Found" });
     }
-
     await existingUser.update({ email });
 
     return res.json({ message: "Updated" });
@@ -65,11 +66,11 @@ exports.updateUser = async (req, res) => {
 
 // remove user
 exports.deleteUser = async (req, res) => {
-  const { User_id } = req.params;
+  const { user_id } = req.params;
 
   try {
-    const existingUser = await User.findByPk({
-      id: User_id,
+    const existingUser = await User.findOne({
+      where: { id: user_id },
     });
 
     if (!existingUser) {
