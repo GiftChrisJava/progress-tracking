@@ -44,6 +44,25 @@ exports.getUser = async (req, res) => {
   }
 };
 
+// get user for a single user by email
+exports.getUserByEmail = async (req, res) => {
+  const { email } = req.params;
+
+  try {
+    const existingUser = await User.findOne({
+      where: { email },
+    });
+
+    if (!existingUser) {
+      return res.status(404).json({ error: "User User Not Found" });
+    }
+
+    return res.json(existingUser);
+  } catch (error) {
+    return res.status(500).json({ error: "Internal Server Error" });
+  }
+};
+
 exports.updateUser = async (req, res) => {
   const { user_id } = req.params;
   const { email } = req.body;

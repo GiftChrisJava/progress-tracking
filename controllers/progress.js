@@ -16,7 +16,7 @@ exports.getAllProgress = async (req, res) => {
 };
 
 exports.createProgress = async (req, res) => {
-  const { user_id, video_id, progress_time, duration, completed } = req.body;
+  const { user_id, video_id } = req.body;
   try {
     const existingVideo = await Video.findOne({ where: { id: video_id } });
 
@@ -79,6 +79,43 @@ exports.updateProgress = async (req, res) => {
     let id = progress_id;
 
     const existingProgress = await Progress.findOne({
+      where: { id: progress_id },
+    });
+
+    if (!existingProgress) {
+      return res.status(404).json({ error: "Video Progress Not Found" });
+    }
+
+    await existingProgress.update(
+      { progress_time },
+      {
+        where: { user_id, progress_id },
+      }
+    );
+
+    return res.json({ message: "Updated" });
+  } catch (error) {
+    return res.status(500).json({ error: "Internal Server Error" });
+  }
+};
+
+exports.getUserProgress = async (req, res) => {
+  const { progress_id, user_id, video_id } = req.params;
+
+  try {
+    const existingVideo = await Video.findOne({ where: { id: video_id } });
+
+    if (!existingVideo) {
+      return res.status(404).json({ error: "Video Not Found" });
+    }
+
+    const existingUser = await User.findOne({ where: { id: user_id } });
+
+    if (!existingUser) {
+      return res.status(404).json({ error: "User Not Found" });
+    }
+
+    const existingProgress = await Progress.findOne({
       where: { id: progress_id, user_id, video_id },
     });
 
@@ -86,9 +123,7 @@ exports.updateProgress = async (req, res) => {
       return res.status(404).json({ error: "Video Progress Not Found" });
     }
 
-    await Progress.update({ progress_time });
-
-    return res.json({ message: "Updated" });
+    return res.json(existingProgress);
   } catch (error) {
     return res.status(500).json({ error: "Internal Server Error" });
   }

@@ -63,6 +63,25 @@ exports.updateVideo = async (req, res) => {
   }
 };
 
+exports.updateVideoById = async (req, res) => {
+  const { video_id } = req.params;
+  const { url } = req.body;
+
+  try {
+    const existingVideo = await Video.findOne({ where: { id: video_id } });
+
+    if (!existingVideo) {
+      return res.status(404).json({ error: "Video Not Found" });
+    }
+
+    await existingVideo.update({ url });
+
+    return res.json({ message: "Updated" });
+  } catch (error) {
+    return res.status(500).json({ error: "Internal Server Error" });
+  }
+};
+
 // remove video
 exports.deleteVideo = async (req, res) => {
   const { video_id } = req.params;

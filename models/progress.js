@@ -4,11 +4,11 @@ module.exports = (sequelize, DataTypes) => {
     {
       progress_time: {
         type: DataTypes.FLOAT,
-        defaultValue: 0,
+        defaultValue: 0.0,
       },
       duration: {
         type: DataTypes.FLOAT,
-        defaultValue: 0,
+        defaultValue: 0.0,
       },
       completed: {
         type: DataTypes.BOOLEAN,
