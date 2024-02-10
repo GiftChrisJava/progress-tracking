@@ -29,6 +29,17 @@ exports.createProgress = async (req, res) => {
     if (!existingUser) {
       return res.status(404).json({ error: "User Not Found" });
     }
+
+    const existingProgress = await Progress.findOne({
+      where: { user_id, video_id },
+    });
+
+    if (existingProgress) {
+      return res
+        .status(404)
+        .json({ error: "Video Progress Already available Found" });
+    }
+
     const progress = await Progress.create({
       user_id,
       video_id,
@@ -100,7 +111,7 @@ exports.updateProgress = async (req, res) => {
 };
 
 exports.getUserProgress = async (req, res) => {
-  const { progress_id, user_id, video_id } = req.params;
+  const { user_id, video_id } = req.params;
 
   try {
     const existingVideo = await Video.findOne({ where: { id: video_id } });
@@ -116,7 +127,7 @@ exports.getUserProgress = async (req, res) => {
     }
 
     const existingProgress = await Progress.findOne({
-      where: { id: progress_id, user_id, video_id },
+      where: { user_id, video_id },
     });
 
     if (!existingProgress) {
